@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Taha | Premium Portfolio</title>
+    
+    <!-- خطوط فاخرة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- أيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* --- إعدادات عامة --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: #F9F7F2; /* لون العاجي الفاخر */
+            color: #2C2C2C;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ملمس الورق الفاخر */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* --- الطباعة --- */
+        h1, h2, h3, h4 { font-family: 'Amiri', serif; font-weight: 700; line-height: 1.4; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+
+        /* --- النظام متعدد الصفحات (محدث) --- */
+        .page { display: none; } /* مخفي افتراضياً */
+        .page.active { display: block; animation: fadeIn 0.6s ease; } /* يظهر بانسيابية */
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- النافبار --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            color: #fff;
+            background: transparent;
+        }
+
+        .logo-text { font-family: 'Amiri', serif; font-size: 1.5rem; letter-spacing: 2px; }
+        
+        nav { display: flex; align-items: center; gap: 35px; }
+        nav a {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+            color: #fff;
+        }
+        nav a.active-link { color: #C5A059; } /* لون الذهب للنشط */
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 0; height: 1px;
+            background: currentColor;
+            transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #C5A059; }
+
+        /* ========================================= */
+        /* --- الصفحة الرئيسية (التعريف) --- */
+        /* ========================================= */
+        .hero-home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #1A1A1A;
+            color: #F9F7F2;
+            position: relative;
+        }
+        .hero-home::after {
+            content: "";
+            position: absolute;
+            bottom: 50px;
+            width: 1px; height: 60px;
+            background: linear-gradient(to bottom, #C5A059, transparent);
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #C5A059;
+            margin-bottom: 20px;
+        }
+        .hero-home h1 { font-size: 5rem; margin-bottom: 20px; }
+        .hero-home p { max-width: 650px; font-size: 1.1rem; color: #aaaaaa; }
+
+        .about-section {
+            padding: 150px 10%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-section p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .signature {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            color: #1A1A1A;
+            margin-top: 50px;
+        }
+
+        /* ========================================= */
+        /* --- صفحة تطوير الويب --- */
+        /* ========================================= */
+        .page-header {
+            padding: 180px 10% 80px;
+            text-align: center;
+            background: #fff;
+        }
+        .page-header span {
+            display: block;
+            color: #C5A059;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .page-header h2 { font-size: 3.5rem; color: #1A1A1A; }
+
+        .web-list {
+            max-width: 900px;
+            margin: 0 auto 100px;
+            padding: 0 10%;
+            border-top: 1px solid #E0DCD4;
+        }
+        .web-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #E0DCD4;
+            transition: all 0.4s ease;
+        }
+        .web-item:hover { padding-right: 20px; }
+        .web-item-info h3 { font-size: 2rem; margin-bottom: 8px; transition: color 0.3s; }
+        .web-item:hover h3 { color: #C5A059; }
+        .web-item-info p { color: #888; font-size: 0.95rem; }
+        .web-item-link {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+            color: #C5A059;
+        }
+        .web-item:hover .web-item-link { opacity: 1; transform: translateX(0); }
+
+        /* ========================================= */
+        /* --- صفحة التصميم الجرافيكي --- */
+        /* ========================================= */
+        .design-gallery {
+            padding: 0 10% 100px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .gallery-card {
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .gallery-card:hover { transform: translateY(-8px); }
+        
+        /* كارت كبير للصورة المميزة */
+        .gallery-card.featured { grid-column: span 2; }
+        .gallery-card.featured img { height: 500px; }
+
+        .gallery-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+        .gallery-card:hover img { transform: scale(1.03); }
+        .gallery-info { padding: 20px; border-top: 1px solid #f0f0f0; }
+        .gallery-info h4 { font-family: 'Amiri', serif; font-size: 1.3rem; margin-bottom: 5px; color: #1A1A1A; }
+        .gallery-info p { font-size: 0.85rem; color: #999; }
+
+        /* ========================================= */
+        /* --- الفوتر (تواصل) --- */
+        /* ========================================= */
+        footer {
+            background: #1A1A1A;
+            color: #F9F7F2;
+            padding: 80px 10%;
+            text-align: center;
+        }
+        .contact-title { font-size: 2.5rem; margin-bottom: 40px; }
+        .contact-info { display: flex; justify-content: center; gap: 50px; margin-bottom: 60px; flex-wrap: wrap; }
+        .contact-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .contact-item i { font-size: 1.5rem; color: #C5A059; }
+        .contact-item a { color: #ddd; transition: color 0.3s; }
+        .contact-item a:hover { color: #C5A059; }
+        .footer-copy { margin-top: 40px; font-size: 0.85rem; color: #666; border-top: 1px solid #333; padding-top: 30px; }
+
+        /* --- التجاوب مع الشاشات الصغيرة --- */
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            .hero-home h1 { font-size: 3rem; }
+            nav a { font-size: 0.8rem; margin-right: 15px; }
+            .about-section { padding: 80px 20px; }
+            .page-header { padding: 130px 20px 60px; }
+            .page-header h2 { font-size: 2.5rem; }
+            .design-gallery { grid-template-columns: 1fr; padding: 0 20px 60px; }
+            .gallery-card.featured { grid-column: span 1; }
+            .gallery-card.featured img { height: 250px; }
+            .web-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .web-item-link { opacity: 1; transform: none; }
+            .contact-info { flex-direction: column; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- النافبار الثابت -->
+    <header>
+        <div class="logo-text">MEGO.</div>
+        <nav>
+            <!-- استخدمنا javascript:void(0) عشان ميعملش ريفرش للصفحة -->
+            <a href="javascript:void(0)" class="nav-link active-link" onclick="showPage('home', this)">الرئيسية</a>
+            <a href="javascript:void(0)" class="nav-link" onclick="showPage('web', this)">تطوير الويب</a>
+            <a href="javascript:void(0)" class="nav-link" onclick="showPage('design', this)">التصميم</a>
+        </nav>
+    </header>
+
+    <!-- ====================================== -->
+    <!-- الصفحة الأولى: الرئيسية (تعريف) -->
+    <!-- ====================================== -->
+    <div id="page-home" class="page active">
+        <div class="hero-home">
+            <span class="hero-subtitle">مطور ويب & مصمم جرافيك</span>
+            <h1>محمد طه</h1>
+            <p>أؤمن بأن التصميم الجيد هو أكثر من مجرد جماليات؛ إنه حل مشاكل. وأؤمن بأن البرمجة هي الروح التي تمنح هذا التصميم الحياة.</p>
+        </div>
+
+        <div class="about-section">
+            <p>
+                أعمل في المساحة بين الفن والتكنولوجيا. أبدأ كل مشروع بفهم عميق للهوية البصرية والهدف من ورائه، ثم أقوم بتحويل هذه الرؤية إلى واجهات مستخدم سلسة أو تصاميم جرافيكية تعكس ثقافة العلامة التجارية وتلهم جمهورها.
+            </p>
+            <p>
+                أسلوبي يميل إلى البساطة المتقنة، مساحات التنفس الواسعة، والألوان التي تحكي قصة. سواء كان المطلوب هو بناء منصة رقمية من الصفر، أو صياغة هوية بصرية لبراند جديد، أقدم عملاً يليق بالعميل ويترك أثراً.
+            </p>
+            <div class="signature">محمد طه (MEGO)</div>
+        </div>
+    </div>
+
+    <!-- ====================================== -->
+    <!-- الصفحة الثانية: تطوير الويب -->
+    <!-- ====================================== -->
+    <div id="page-web" class="page">
+        <div class="page-header">
+            <span>Web Development</span>
+            <h2>تجارب رقمية متكاملة</h2>
+        </div>
+
+        <div class="web-list">
+            <a href="https://mohamed797-ux.github.io/mego/" target="_blank" class="web-item">
+                <div class="web-item-info">
+                    <h3>بورتفوليو MEGO</h3>
+                    <p>هوية بصرية وتجربة مستخدم سلسة لعرض الأعمال الجرافيكية</p>
+                </div>
+                <div class="web-item-link">→</div>
+            </a>
+
+            <a href="https://mohamed797-ux.github.io/academy/" target="_blank" class="web-item">
+                <div class="web-item-info">
+                    <h3>Skill Mego</h3>
+                    <p>منصة أكاديمية تعليمية متجاوبة مع جميع الأجهزة</p>
+                </div>
+                <div class="web-item-link">→</div>
+            </a>
+
+            <a href="https://mohamed797-ux.github.io/ai/" target="_blank" class="web-item">
+                <div class="web-item-info">
+                    <h3>AI Academy</h3>
+                    <p>واجهة تكنولوجية عصرية مخصصة لأكاديمية الذكاء الاصطناعي</p>
+                </div>
+                <div class="web-item-link">→</div>
+            </a>
+
+            <a href="https://mohamed797-ux.github.io/m3go.package/" target="_blank" class="web-item">
+                <div class="web-item-info">
+                    <h3>Mego Package</h3>
+                    <p>صفحة هبوط مركزة على التحويلات وعرض الباقات</p>
+                </div>
+                <div class="web-item-link">→</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ====================================== -->
+    <!-- الصفحة الثالثة: التصميم الجرافيكي -->
+    <!-- ====================================== -->
+    <div id="page-design" class="page">
+        <div class="page-header">
+            <span>Graphic Design</span>
+            <h2>هوية بصرية وثقافة تصميم</h2>
+        </div>
+
+        <div class="design-gallery">
+            <!-- الصورة المميزة (كبيرة) -->
+            <div class="gallery-card featured">
+                <img src="https://z-cdn-media.chatglm.cn/files/f30559b5-3ab7-412f-8fed-4aa0b03a11f0.png?auth_key=1878356645-fa405aaa40fd4bc49ecab52fcafae7af-0-99a82cf8f0f3bba34b027439e66fbf81" alt="Between Stillness and Shadow">
+                <div class="gallery-info">
+                    <h4>Between Stillness and Shadow</h4>
+                    <p>بوستر فني - دمج التصوير الفوتوغرافي مع الطباعة (Typography)</p>
+                </div>
+            </div>
+
+            <!-- باقي التصاميم -->
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/d6c1d61b-cd72-4c3a-97ed-09240db112f1.png?auth_key=1878356645-64ffbfef44e845eb8fff93bb955ee293-0-4b0fed87acae73bbfcfe7c15b8b75a33" alt="Grevia Logo">
+                <div class="gallery-info">
+                    <h4>شعار Grevia</h4>
+                    <p>هوية بصرية - بيئة وطبيعة</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/4dcff1dc-64cc-4167-b230-cfeaf608998b.png?auth_key=1878356645-a445be9da8bd4e7684fc1ace287d1151-0-8b3c5d00b762afc912f3213bb307242c" alt="MEGO Streetwear">
+                <div class="gallery-info">
+                    <h4>علامة MEGO التجارية</h4>
+                    <p>تصميم شعار أزياء Streetwear</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/d3575e6b-c7d4-44fe-a563-0418283fd365.png?auth_key=1878356645-2feb5e33d41e458680e4dee937eb4cef-0-f958e4a9739a8246dd84ec5912073d7f" alt="The Pure Dairy">
+                <div class="gallery-info">
+                    <h4>The Pure Dairy (B.Laban)</h4>
+                    <p>هوية بصرية كلاسيكية - منتجات ألبان</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/e4ea339a-3b13-4e45-b01b-88bde9bb4dbb.png?auth_key=1878356645-faaa5f7f18f54ce6a788205a19b8c4ae-0-7dc59524e1f5454d5e0377fe0438207d" alt="Obsidian">
+                <div class="gallery-info">
+                    <h4>Obsidian</h4>
+                    <p>تصميم شعار مينيماليزم (Minimalist)</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/45d5ebdb-2658-400d-a61e-0f70f6693a0b.png?auth_key=1878356645-801f549aee0740a7958de21ce90555fb-0-4a6dc3eb5702f7d34a3da989f8631be0" alt="ميجو خط عربي">
+                <div class="gallery-info">
+                    <h4>خط "ميجو"</h4>
+                    <p>تصميم طباعة عربية فنية (Calligraphy)</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/034a5f14-93b0-4b12-bd5b-63215f2635b8.png?auth_key=1878356645-ecd8c92de6c246109e2af8b043ef1b57-0-28a93ae38b2a2e1f6eb674165b69b799" alt="Tech Nature Logo">
+                <div class="gallery-info">
+                    <h4>شعار تكنولوجي حيوي</h4>
+                    <p>دمج عناصر الطبيعة مع التكنولوجيا والذكاء الاصطناعي</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/ce3c5c55-afa3-43a1-93b0-fbabb1dbd277.png?auth_key=1878356645-f0b607f5f70a42ac9b4f153f3569533e-0-f1dc3fbd93afc31b31c59f8007c82748" alt="TagMe">
+                <div class="gallery-info">
+                    <h4>TagMe</h4>
+                    <p>تصميم هوية تطبيق/منصة رقمية</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/699a2e6c-da2e-45ca-ac38-ffcd37f14f97.png?auth_key=1878356645-850b66b12a3944b28b9cf38e3a07c581-0-d78ea499d4b7cb6a43bcc4abfe6cce2b" alt="Pixel Code">
+                <div class="gallery-info">
+                    <h4>Pixel Code</h4>
+                    <p>شعار شركة برمجة - أسلوب البكسل (Pixel Art)</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="https://z-cdn-media.chatglm.cn/files/73a10bfc-6598-416a-9d52-86e6da436583.png?auth_key=1878356645-824ddd4d05f44a898255dce6d8ae5784-0-aaf4bb50928f12ab5e03a2bff506a138" alt="Finance Thumbnail">
+                <div class="gallery-info">
+                    <h4>ثامبنيو يوتيوب (Finance)</h4>
+                    <p>تصميم ميديا وسائط متعددة</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================== -->
+    <!-- الفوتر (بيانات التواصل) -->
+    <!-- ====================================== -->
+    <footer>
+        <h3 class="contact-title">لنبني شيئاً استثنائياً معاً</h3>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:01055463780">01055463780</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:m3go.exe@gmail.com">m3go.exe@gmail.com</a>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2024 Mohamed Taha (MEGO). جميع الحقوق محفوظة.
+        </div>
+    </footer>
+
+    <!-- كود الجافاسكريبت (محدث وقوي جداً) -->
+    <script>
+        function showPage(pageId, element) {
+            // 1. إخفاء كل الصفحات بشكل قاسي (مضمون)
+            var allPages = document.getElementsByClassName('page');
+            for (var i = 0; i < allPages.length; i++) {
+                allPages[i].style.display = 'none';
+                allPages[i].classList.remove('active');
+            }
+            
+            // 2. إزالة اللون الذهبي من كل أزرار القائمة
+            var allLinks = document.getElementsByClassName('nav-link');
+            for (var i = 0; i < allLinks.length; i++) {
+                allLinks[i].classList.remove('active-link');
+            }
+            
+            // 3. إظهار الصفحة المطلوبة بقوة
+            var targetPage = document.getElementById('page-' + pageId);
+            targetPage.style.display = 'block';
+            
+            // إضافة الانيميشن
+            targetPage.classList.add('active');
+            
+            // 4. تلوين زر القائمة المضغوط بالذهبي
+            element.classList.add('active-link');
+            
+            // 5. الصعود لأعلى الصفحة بسلاسة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
